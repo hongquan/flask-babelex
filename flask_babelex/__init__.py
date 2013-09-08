@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
     flask.ext.babelex
     ~~~~~~~~~~~~~~~~~
@@ -8,7 +7,6 @@
     :copyright: (c) 2013 by Serge S. Koval, Armin Ronacher and contributors.
     :license: BSD, see LICENSE for more details.
 """
-from __future__ import absolute_import
 import os
 
 # this is a workaround for a snow leopard bug that babel does not
@@ -122,7 +120,7 @@ class Babel(object):
             )
             app.jinja_env.add_extension('jinja2.ext.i18n')
             app.jinja_env.install_gettext_callables(
-                lambda x: get_domain().get_translations().ugettext(x),
+                lambda x: get_domain().get_translations().gettext(x),
                 lambda s, p, n: get_domain().get_translations().ungettext(s, p, n),
                 newstyle=True
             )
@@ -530,7 +528,7 @@ class Domain(object):
             gettext(u'Hello %(name)s!', name='World')
         """
         t = self.get_translations()
-        return t.ugettext(string) % variables
+        return t.gettext(string) % variables
 
     def ngettext(self, singular, plural, num, **variables):
         """Translates a string with the current locale and passes in the
